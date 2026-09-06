@@ -1,0 +1,89 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="300" viewBox="0 0 1200 300" role="img" aria-label="Fix-Spotlight — Windows 11 Spotlight, unstuck">
+  <defs>
+    <!-- espresso -> mocha -> caramel -->
+    <linearGradient id="roast" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#22140e"/>
+      <stop offset="0.55" stop-color="#4a2c1e"/>
+      <stop offset="1" stop-color="#8a5a34"/>
+    </linearGradient>
+    <!-- wallpaper: warm sunrise over dunes -->
+    <linearGradient id="wall" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#f3d9a6"/>
+      <stop offset="1" stop-color="#f8ecd8"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0.82" cy="0.18" r="0.6">
+      <stop offset="0" stop-color="#ffd9a0" stop-opacity="0.22"/>
+      <stop offset="1" stop-color="#ffd9a0" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="pill" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#f5ecdf" stop-opacity="0.18"/>
+      <stop offset="1" stop-color="#f5ecdf" stop-opacity="0.07"/>
+    </linearGradient>
+    <linearGradient id="cupfill" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#f6efe4"/>
+      <stop offset="1" stop-color="#e3d2bb"/>
+    </linearGradient>
+    <clipPath id="round"><rect width="1200" height="300" rx="24"/></clipPath>
+    <clipPath id="screen"><rect x="812" y="78" width="316" height="150" rx="10"/></clipPath>
+  </defs>
+
+  <g clip-path="url(#round)">
+    <rect width="1200" height="300" fill="url(#roast)"/>
+    <rect width="1200" height="300" fill="url(#glow)"/>
+    <!-- spotlight rings, cream -->
+    <g fill="none" stroke="#f5ecdf" stroke-opacity="0.10">
+      <circle cx="1000" cy="40" r="150"/><circle cx="1000" cy="40" r="230"/><circle cx="1000" cy="40" r="320"/>
+    </g>
+    <!-- a few coffee beans, faint -->
+    <g fill="#f5ecdf" fill-opacity="0.07">
+      <ellipse cx="120" cy="40" rx="14" ry="9" transform="rotate(-30 120 40)"/>
+      <ellipse cx="560" cy="270" rx="14" ry="9" transform="rotate(20 560 270)"/>
+      <ellipse cx="700" cy="60" rx="14" ry="9" transform="rotate(-50 700 60)"/>
+    </g>
+    <g stroke="#22140e" stroke-opacity="0.35" stroke-width="1.5" fill="none">
+      <path d="M113 48 q7 -10 14 -16" /><path d="M553 276 q7 -6 14 -12"/><path d="M693 68 q7 -10 14 -16"/>
+    </g>
+
+    <!-- wallpaper monitor -->
+    <g>
+      <rect x="792" y="58" width="356" height="190" rx="16" fill="#2a1912" stroke="#f5ecdf" stroke-opacity="0.16"/>
+      <circle cx="812" cy="74" r="4" fill="#ff6a5f"/><circle cx="828" cy="74" r="4" fill="#ffcf4a"/><circle cx="844" cy="74" r="4" fill="#4fd06a"/>
+      <g clip-path="url(#screen)">
+        <rect x="812" y="78" width="316" height="150" fill="url(#wall)"/>
+        <circle cx="1060" cy="118" r="26" fill="#ffb347"/>
+        <!-- dunes in caramel and mocha -->
+        <polygon points="812,228 900,150 968,206 1030,150 1128,228" fill="#c68a4a" opacity="0.92"/>
+        <polygon points="812,228 890,176 962,214 1040,168 1128,228" fill="#8a5a34"/>
+      </g>
+      <rect x="792" y="58" width="356" height="190" rx="16" fill="none" stroke="#f5ecdf" stroke-opacity="0.10"/>
+    </g>
+
+    <!-- coffee cup, resting by the monitor -->
+    <g transform="translate(724 190)">
+      <!-- steam -->
+      <g fill="none" stroke="#f5ecdf" stroke-opacity="0.45" stroke-width="2.2" stroke-linecap="round">
+        <path d="M16 -6 c -6 -8 6 -14 0 -22"/>
+        <path d="M28 -4 c -6 -8 6 -14 0 -22"/>
+        <path d="M40 -6 c -6 -8 6 -14 0 -22"/>
+      </g>
+      <!-- saucer -->
+      <ellipse cx="28" cy="46" rx="34" ry="6" fill="#f5ecdf" fill-opacity="0.35"/>
+      <!-- cup body -->
+      <path d="M2 4 h52 v22 a26 18 0 0 1 -52 0 z" fill="url(#cupfill)"/>
+      <!-- coffee surface -->
+      <ellipse cx="28" cy="6" rx="24" ry="5" fill="#4a2c1e"/>
+      <ellipse cx="28" cy="6" rx="24" ry="5" fill="none" stroke="#f5ecdf" stroke-opacity="0.5"/>
+      <!-- handle -->
+      <path d="M54 12 c 12 -2 14 16 0 18" fill="none" stroke="#e3d2bb" stroke-width="5" stroke-linecap="round"/>
+    </g>
+
+    <!-- wordmark -->
+    <text x="64" y="128" font-family="'Segoe UI Semibold','Segoe UI',system-ui,sans-serif" font-size="70" font-weight="700" fill="#f8efe2" letter-spacing="-1.5">Fix&#8209;Spotlight</text>
+    <text x="66" y="172" font-family="'Segoe UI','Segoe UI',system-ui,sans-serif" font-size="26" fill="#e9c9a3">Windows&#160;11 Spotlight, unstuck.</text>
+
+    <!-- command pill -->
+    <rect x="64" y="200" width="248" height="44" rx="12" fill="url(#pill)" stroke="#f5ecdf" stroke-opacity="0.22"/>
+    <circle cx="86" cy="222" r="4" fill="#ffb347"/>
+    <text x="102" y="228" font-family="'Cascadia Code','Consolas',ui-monospace,monospace" font-size="17" fill="#f8efe2">.\Fix-Spotlight.ps1</text>
+  </g>
+</svg>

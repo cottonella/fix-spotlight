@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 114 36" width="114" height="36" role="img" aria-label="Made with love">
+  <!-- The app's .pill-soft: cream base-200 pill, muted warm text, heart after the words. -->
+  <rect x="2" y="3" width="110" height="30" rx="15" fill="#f4eee2"/>
+  <text x="15" y="18" font-family="-apple-system,'Segoe UI',system-ui,Roboto,Helvetica,Arial,sans-serif" font-size="13" font-weight="500" fill="#5d4c3b" fill-opacity="0.78" dominant-baseline="central" textLength="63">Made with</text>
+  <!-- AppIcon 'heart' (24-box) at 16 px, vertically centred on the text. -->
+  <g transform="translate(84,10) scale(0.6667)" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M12 19.2c-4.8-3.1-7-6-7-9A3.5 3.5 0 0 1 12 7.2a3.5 3.5 0 0 1 7 2.9c0 3-2.2 5.9-7 9Z" fill="#FFB3C8" stroke="#FF7A9C"/>
+  </g>
+</svg>
