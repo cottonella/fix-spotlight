@@ -1,21 +1,21 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="800" height="724" viewBox="0 0 800 724" role="img" aria-label="Sample -HealthCheck output: HEALTHY">
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="776" viewBox="0 0 800 776" role="img" aria-label="Sample health report: HEALTHY">
   <defs>
-    <clipPath id="win"><rect width="800" height="724" rx="14"/></clipPath>
+    <clipPath id="win"><rect width="800" height="776" rx="14"/></clipPath>
     <style>
       .mono{font-family:'Cascadia Code','JetBrains Mono','Consolas',ui-monospace,monospace}
       .lbl{fill:#9aa4b2}.val{fill:#e9eef5}.dim{fill:#6b7480}.info{fill:#8b949e}
-      .g{fill:#3fb950}.cy{fill:#4cc2ff}
+      .g{fill:#3fb950}.cy{fill:#4cc2ff}.am{fill:#d29922}
     </style>
   </defs>
   <g clip-path="url(#win)">
-    <rect width="800" height="724" fill="#0d1117"/>
+    <rect width="800" height="776" fill="#0d1117"/>
     <rect width="800" height="44" fill="#161b22"/>
     <line x1="0" y1="44" x2="800" y2="44" stroke="#22272e"/>
     <circle cx="24" cy="22" r="6" fill="#ff6a5f"/><circle cx="46" cy="22" r="6" fill="#ffcf4a"/><circle cx="68" cy="22" r="6" fill="#4fd06a"/>
-    <text x="96" y="27" class="mono dim" font-size="13">PS C:\Users\user&gt; .\Fix-Spotlight.ps1 -HealthCheck</text>
+    <text x="96" y="27" class="mono dim" font-size="13">PS C:\Users\user&gt; .\Fix-Spotlight.ps1</text>
 
-    <text x="30" y="84" class="mono" font-size="14"><tspan class="cy">spotlight health</tspan><tspan class="dim">  &#183;  DESKTOP-FOQMRTR</tspan></text>
-    <text x="30" y="104" class="mono dim" font-size="12.5">IoT Enterprise LTSC 2024 &#183; 26100.9168 &#183; CBS 1000.26100.344.0 &#183; checked 2026-09-05 22:31</text>
+    <text x="30" y="84" class="mono" font-size="14"><tspan class="cy">spotlight health</tspan><tspan class="dim">  &#183;  DESKTOP-FOQMRTR  &#183;  2026-09-05 22:31</tspan></text>
+    <text x="30" y="104" class="mono dim" font-size="12.5">IoT Enterprise LTSC 2024 &#183; 26100.9168 &#183; CBS 1000.26100.344.0</text>
 
     <!-- CRITICAL -->
     <text x="30" y="136" class="mono dim" font-size="11.5" letter-spacing="2">CRITICAL</text>
@@ -36,7 +36,7 @@
       <circle cx="34" cy="332" r="4" class="g"/><text x="52" y="336" class="lbl">Background exec access</text><text x="290" y="336" class="val">AllowedSubjectToSystemPolicy</text>
       <circle cx="34" cy="356" r="4" class="g"/><text x="52" y="360" class="lbl">Downloaded images</text><text x="290" y="360" class="val">8 full-size (32 total)</text>
       <circle cx="34" cy="380" r="4" class="g"/><text x="52" y="384" class="lbl">Wallpaper content cache</text><text x="290" y="384" class="val">200 &#183; hasImages=True &#183; valid</text>
-      <circle cx="34" cy="404" r="4" class="g"/><text x="52" y="408" class="lbl">Last content retrieval</text><text x="290" y="408" class="val">success=True <tspan class="dim">(4m ago)</tspan></text>
+      <circle cx="34" cy="404" r="4" class="g"/><text x="52" y="408" class="lbl">Last content retrieval</text><text x="290" y="408" class="val">success=True  &#183;  Sat 22:27  <tspan class="dim">(4m ago)</tspan></text>
       <circle cx="34" cy="428" r="4" class="g"/><text x="52" y="432" class="lbl">No leftover helpers</text><text x="290" y="432" class="val">clean</text>
     </g>
 
@@ -46,17 +46,19 @@
     <g class="mono" font-size="13.5">
       <circle cx="34" cy="484" r="4" fill="none" stroke="#6b7480"/><text x="52" y="488" class="lbl">Background mode</text><text x="290" y="488" class="info">3 (Windows spotlight)</text>
       <circle cx="34" cy="508" r="4" fill="none" stroke="#6b7480"/><text x="52" y="512" class="lbl">Images shown so far</text><text x="290" y="512" class="info">1  (~daily on content pull, not hourly)</text>
-      <circle cx="34" cy="532" r="4" fill="none" stroke="#6b7480"/><text x="52" y="536" class="lbl">Last wallpaper change</text><text x="290" y="536" class="info">2026-09-06T02:27:41Z  (4m ago)</text>
-      <circle cx="34" cy="556" r="4" fill="none" stroke="#6b7480"/><text x="52" y="560" class="lbl">Next daily run (expected)</text><text x="290" y="560" class="info">Sun 23:51  (in 24h)  &#183; daily timer</text>
-      <circle cx="34" cy="580" r="4" fill="none" stroke="#6b7480"/><text x="52" y="584" class="lbl">Next content download</text><text x="290" y="584" class="info">Sun 22:27  (in 22h)  &#183; until then runs rotate within the set</text>
-      <circle cx="34" cy="604" r="4" fill="#d29922"/><text x="52" y="608" class="lbl">Refresh gate (60 min)</text><text x="290" y="608" class="info">closed &#183; opens 23:27 &#183; normal after a rotation</text>
-      <circle cx="34" cy="628" r="4" fill="none" stroke="#6b7480"/><text x="52" y="632" class="lbl">Content cache expires</text><text x="290" y="632" class="info">2026-09-20T02:27:41Z  (in 14d)</text>
+      <circle cx="34" cy="532" r="4" fill="none" stroke="#6b7480"/><text x="52" y="536" class="lbl">Last wallpaper change</text><text x="290" y="536" class="info">Sat 22:27  (4m ago)</text>
+      <circle cx="34" cy="556" r="4" fill="none" stroke="#6b7480"/><text x="52" y="560" class="lbl">Next daily run (expected)</text><text x="290" y="560" class="info">Sun 22:27  (in 24h)  &#183; later if the PC was asleep</text>
+      <circle cx="34" cy="580" r="4" fill="none" stroke="#6b7480"/><text x="52" y="584" class="lbl">Next content download</text><text x="290" y="584" class="info">Sun 22:27  (in 24h)  &#183; same set until then</text>
+      <circle cx="34" cy="604" r="4" class="am"/><text x="52" y="608" class="lbl">Refresh gate (60 min)</text><text x="290" y="608" class="info">closed &#183; opens 23:27 &#183; normal after a rotation</text>
+      <circle cx="34" cy="628" r="4" fill="none" stroke="#6b7480"/><text x="52" y="632" class="lbl">Content cache expires</text><text x="290" y="632" class="info">Sep 19 22:27  (in 14d)</text>
       <circle cx="34" cy="652" r="4" fill="none" stroke="#6b7480"/><text x="52" y="656" class="lbl">Spotlight service (live)</text><text x="290" y="656" class="info">reachable, serving wallpaper content</text>
     </g>
 
-    <!-- verdict -->
-    <rect x="30" y="688" width="12" height="16" rx="2" class="g"/>
-    <text x="50" y="701" class="mono g" font-size="15" font-weight="600">HEALTHY</text>
-    <text x="140" y="701" class="mono dim" font-size="13">0 fail &#183; 0 warn</text>
+    <!-- next step + verdict -->
+    <text x="30" y="692" class="mono lbl" font-size="13.5">Nothing to do - next photo expected Sun 22:27</text>
+    <rect x="30" y="736" width="12" height="16" rx="2" class="g"/>
+    <text x="50" y="749" class="mono g" font-size="15" font-weight="600">HEALTHY</text>
+    <text x="140" y="749" class="mono dim" font-size="13">0 fail &#183; 0 warn</text>
+    <text x="290" y="749" class="mono" font-size="13" xml:space="preserve"><tspan class="cy">[M]</tspan><tspan class="val"> Menu   </tspan><tspan class="cy">[Q]</tspan><tspan class="val"> Quit</tspan></text>
   </g>
 </svg>

@@ -25,58 +25,49 @@ C:\Windows\SystemApps\MicrosoftWindows.Client.CBS_...\DesktopSpotlight\Assets\Im
 
 …and there it sits. The catch is that those tasks can only be re-created by code running **inside** the package's own identity — which is exactly why the usual `Add-AppxPackage -Register` / `Reset-AppxPackage` dance doesn't bring them back. `Fix-Spotlight` does it the way Windows itself would.
 
-## ✨ Three commands
+## ▶️ How to run
+
+From a downloaded copy of `Fix-Spotlight.ps1`:
 
 ```powershell
-# 1) See how Spotlight is doing — read-only, changes nothing
-powershell -ExecutionPolicy Bypass -File .\Fix-Spotlight.ps1 -HealthCheck
-
-# 2) Fix it  (takes 15-30 min - it schedules Windows' own timer and waits for the new photo)
 powershell -ExecutionPolicy Bypass -File .\Fix-Spotlight.ps1
-
-# 3) Fix it even if the tasks look present but the wallpaper is still stuck
-powershell -ExecutionPolicy Bypass -File .\Fix-Spotlight.ps1 -Force
 ```
 
-> **Heads-up:** run these in **Windows PowerShell 5.1** (`powershell.exe`) — not PowerShell 7 (`pwsh`). The magic relies on Windows' built-in WinRT projection, which only 5.1 has. No admin prompt; everything runs as you.
-
-### ⚡ Or run it straight from GitHub
-
-No download needed — paste into a Windows PowerShell 5.1 window:
+Or straight from GitHub, nothing to download:
 
 ```powershell
-# 1) See how Spotlight is doing — read-only, changes nothing
-iex "& { $(irm https://raw.githubusercontent.com/cottonella/fix-spotlight/main/Fix-Spotlight.ps1) } -HealthCheck"
-
-# 2) Fix it
 irm https://raw.githubusercontent.com/cottonella/fix-spotlight/main/Fix-Spotlight.ps1 | iex
-
-# 3) Fix it even if the tasks look present but the wallpaper is still stuck
-iex "& { $(irm https://raw.githubusercontent.com/cottonella/fix-spotlight/main/Fix-Spotlight.ps1) } -Force"
 ```
 
-The plain `irm … | iex` form runs the repair; to pass a switch, use the `iex "& { … } -Switch"` form. Either way the script returns to your prompt when it's done (it won't close your window) and leaves the verdict in `$LASTEXITCODE`.
+Either way you get the health report, and at the bottom a small **[M] menu** — health check, fix, force, remove a pending fetch. After each action it offers the menu again; **Q** leaves. It never closes your window.
+
+> **Heads-up:** run it in **Windows PowerShell 5.1** (`powershell.exe`) — not PowerShell 7 (`pwsh`). The magic relies on Windows' built-in WinRT projection, which only 5.1 has. No admin prompt; everything runs as you.
 
 Make sure Spotlight is actually selected first: **Settings → Personalization → Background → Windows spotlight**. The tasks only do their work while it's the chosen background.
 
 ## 🩺 What healthy looks like
 
-`-HealthCheck` prints a tidy, colour-coded readout and an overall verdict — green when all is well, amber for **DEGRADED**, red for **BROKEN** — plus an exit code (`0` / `1` / `2`) so you can fold it into fleet scripting.
+Run it with no switches and you get a tidy, colour-coded readout and an overall verdict — green when all is well, amber for **DEGRADED**, red for **BROKEN** — plus an exit code (`0` / `1` / `2`) so you can fold it into fleet scripting. The verdict line ends with a small **[M] menu**: press M for Health check, Fix, Force, or removing a pending fetch; after each action the menu is one keypress away again, and **Q** closes the report. `-HealthCheck` gives the same report without the prompt, for scripts. The repair itself speaks the same language — the same sections, dots and block verdict (`FIXED`, `BLOCKED`, `FAILED`).
 
 <p align="center">
-  <img src="assets/health-report.svg" width="760" alt="Sample -HealthCheck output showing a HEALTHY verdict" />
+  <img src="assets/health-report.svg" width="760" alt="Sample health report showing a HEALTHY verdict" />
 </p>
 
 Every timestamp carries a friendly *"(15h ago)"* so you can spot a stall at a glance, and the header stamps the edition, build, and CBS version — so a report pasted from any machine identifies itself.
 
-## 🎛️ Commands &amp; flags
+The line just above the verdict tells you what to do and when, worked out from the same facts: *Run Fix now — the gate is open*, *Run Fix after 03:23, when the gate opens*, *Wait — a fetch is already scheduled*, or *Nothing to do — next photo expected Mon 02:23*.
 
-| Flag                  | What it does                                                                                                                                      |
-| --------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- |
-| *(none)*              | **Repair.** Register the tasks in-package, schedule a one-shot fetch, and wait for the new wallpaper to land (usually 15–30 min, progress shown). |
-| `-HealthCheck`        | **Read-only report** + verdict. Alias: `-DiagnoseOnly`. Exit `0` healthy · `1` degraded · `2` broken.                                             |
-| `-Force`              | Do the repair even when the tasks already exist — for the "registered but still stuck on the placeholder" case, or simply to get a new photo now. |
-| `-CleanLockScreenPin` | Remove a static lock-screen image pinned by a third-party app (the removed values are printed first).                                             |
+## 🎛️ Flags
+
+| Flag           | What it does                                                    |
+| -------------- | --------------------------------------------------------------- |
+| *(none)*       | Health report, then a menu to fix things from.                  |
+| `-HealthCheck` | Health report only, no menu — for scripts.                      |
+| `-Fix`         | Repair. Waits for the new photo (usually 15–30 min).            |
+| `-Force`       | Repair even if everything looks fine. Same wait.                |
+| `-RemoveFetch` | Cancel a fetch that `-Fix` or `-Force` scheduled.               |
+
+Exit code: `0` healthy · `1` degraded · `2` broken.
 
 ## 🔍 What it checks
 
@@ -103,7 +94,7 @@ Everything above was worked out by comparing a broken machine with a healthy one
 
 ## 🛟 Is it safe?
 
-- **`-HealthCheck` is strictly read-only** — it inspects and reports, and touches nothing.
+- **The health report is strictly read-only** — the default run and `-HealthCheck` inspect and report, and touch nothing; the menu only acts when you pick an item.
 - **The fix only adds the background-task registrations Windows itself would have created.** No files deleted, no system settings changed, no admin rights.
 - **No phoning home** — the only network touch is an optional 3-second reachability probe to Microsoft's own Spotlight endpoint, shown as info.
 - **Self-cleaning &amp; reversible** — the one extra registration it makes is a one-shot timer that removes itself after it runs; the tasks it adds are the stock ones. It never rewrites Spotlight's timestamps or clears its cache.
