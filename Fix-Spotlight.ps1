@@ -194,16 +194,45 @@ function Get-SpotlightState {
   $la = if ($st -match 'LastAttemptDate":"([^"]+)') { $Matches[1] } else { '' }
   $ss = ($st -match 'RetrieveIrisContentSuccess":true')
   $sd = if ($st -match 'RetrieveIrisContentSuccessDate":"([^"]+)') { $Matches[1] } else { '' }
-  $cache = 'HKCU:\Software\Microsoft\Windows\CurrentVersion\IrisService\Cache'
-  $c820 = @(Get-ChildItem $cache -ErrorAction SilentlyContinue | Where-Object {
-            "$((Get-ItemProperty $_.PSPath -ErrorAction SilentlyContinue).RequestUri)" -match 'placement=88000820' })
-  $cExpiry=''; $cExpired=$false; $cHasImg=$false; $cStatus=''; $cUri=''; $cRefresh=''
-  if ($c820.Count) {
-    $cv2 = Get-ItemProperty $c820[0].PSPath -ErrorAction SilentlyContinue
-    $cStatus = $cv2.StatusCode; $cExpiry = $cv2.LastExpiration; $cUri = "$($cv2.RequestUri)"; $cRefresh = "$($cv2.RefreshTime)"
-    if ($cExpiry) { try { $cExpired = ([DateTime]::Parse($cExpiry).ToUniversalTime() -lt [DateTime]::UtcNow) } catch {} }
-    $cHasImg = ("$($cv2.RawJson)" -match 'landscapeImage|portraitImage|onecdn')
+  
+  $irisRoot = 'HKCU:\Software\Microsoft\Windows\CurrentVersion\IrisService'
+  $cache = Join-Path $irisRoot 'Cache'
+  $providerPath = Join-Path $irisRoot 'Providers\SessionContextHash\88000820'
+
+  $c820 = @()
+  $providerKeys = @(Get-ChildItem $providerPath -ErrorAction SilentlyContinue)
+
+  if ($providerKeys.Count -eq 1) {
+      $provider = Get-ItemProperty $providerKeys[0].PSPath -ErrorAction SilentlyContinue
+      $sessionHash = [string]$provider.SessionContextHash
+
+      if ($sessionHash -match '^\d+$') {
+          $cacheEntry = Join-Path $cache $sessionHash
+  
+          if (Test-Path $cacheEntry) {
+              $entry = Get-ItemProperty $cacheEntry -ErrorAction SilentlyContinue
+   
+              if ($entry.RequestUri -match 'placement=88000820') {
+                  $c820 = @(Get-Item $cacheEntry)
+              }
+          }
+      }
   }
+
+$cExpiry=''; $cExpired=$false; $cHasImg=$false; $cStatus=''; $cUri=''; $cRefresh=''
+if ($c820.Count -eq 1) {
+    $cv2 = Get-ItemProperty $c820[0].PSPath -ErrorAction SilentlyContinue
+    $cStatus = $cv2.StatusCode
+    $cExpiry = $cv2.LastExpiration
+    $cUri = "$($cv2.RequestUri)"
+    $cRefresh = "$($cv2.RefreshTime)"
+
+    if ($cExpiry) {
+        try { $cExpired = ([DateTime]::Parse($cExpiry).ToUniversalTime() -lt [DateTime]::UtcNow) } catch {}
+    }
+    $cHasImg = ("$($cv2.RawJson)" -match 'landscapeImage|portraitImage|onecdn')
+}
+
   $iris = "$env:LOCALAPPDATA\Packages\$PFN\LocalCache\Microsoft\IrisService"
   $allImg = @(Get-ChildItem $iris -Recurse -File -ErrorAction SilentlyContinue)
   [pscustomobject]@{
